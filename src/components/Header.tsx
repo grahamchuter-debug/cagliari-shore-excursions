@@ -26,8 +26,8 @@ export function Header() {
             height={40}
           />
           <div className="hidden sm:block">
-            <div className="font-display text-lg font-bold text-coastal-800 leading-tight">Cartagena Shore</div>
-            <div className="text-xs text-gray-500 -mt-0.5">Excursions &amp; Cruise Planner</div>
+            <div className="font-display text-lg font-bold text-coastal-800 leading-tight">Cagliari Shore</div>
+            <div className="text-xs text-gray-500 -mt-0.5">Excursions &amp; Sardinia</div>
           </div>
         </Link>
         <nav className="hidden xl:flex items-center gap-1" aria-label="Main navigation">

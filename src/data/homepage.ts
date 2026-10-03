@@ -3,35 +3,35 @@ import type { FAQ, VisitorType } from "./types";
 export const visitorTypes: VisitorType[] = [
   {
     id: "first-time",
-    label: "First time in Cartagena",
+    label: "First time in Cagliari on a cruise",
     shortLabel: "First visit",
-    description: "Roman Theatre, old town and harbour — we help you choose the right first Cartagena experience for your port hours.",
-    href: "/best-cartagena-excursions-for-first-time-visitors",
+    description: "Choose between historic Castello on foot, Nora archaeology or a Gulf of Angels boat day — we help you pick the right first experience.",
+    href: "/best-things-to-do-in-cagliari-from-a-cruise-ship",
     cta: "See first-timer picks",
   },
   {
-    id: "roman",
-    label: "Here for Roman history",
-    shortLabel: "Roman ruins",
-    description: "Theatre, Forum, Punic Wall and archaeology — compare Roman Highlights, the walking tour and DIY routes.",
-    href: "/why-roman-highlights-is-our-editors-choice",
-    cta: "Roman guides",
+    id: "nature",
+    label: "Here for wildlife and coastline",
+    shortLabel: "Nature & coast",
+    description: "Flamingos at Molentargius, Gulf of Angels boat tours, snorkelling coves and Poetto beach — Southern Sardinia's wild side.",
+    href: "/best-cagliari-excursions-for-nature-lovers",
+    cta: "Nature guides",
   },
   {
-    id: "food",
-    label: "Food and tapas",
-    shortLabel: "Tapas",
-    description: "Markets, tapas bars and authentic Murcian cuisine — the tastiest way to spend a Cartagena port day.",
-    href: "/cartagena-food-tapas-guide",
-    cta: "Food guides",
+    id: "food-wine",
+    label: "Here for Sardinian food and wine",
+    shortLabel: "Food & wine",
+    description: "Mercato San Benedetto, Cannonau and Vermentino tastings, and authentic Sardinian flavours from the cruise port.",
+    href: "/sardinian-food-guide",
+    cta: "Food & wine guides",
   },
   {
-    id: "diy",
-    label: "DIY walker",
-    shortLabel: "Walk it",
-    description: "Cartagena's compact old town rewards independent exploration — harbour routes, castle lifts and Roman lanes on foot.",
-    href: "/cartagena-old-town-walking-guide",
-    cta: "Walking guides",
+    id: "history",
+    label: "I want archaeology and history",
+    shortLabel: "History",
+    description: "Nora's Roman ruins, Su Nuraxi nuraghe, Castello quarter and Punic heritage — Southern Sardinia's ancient layers.",
+    href: "/best-cagliari-excursions-for-history-lovers",
+    cta: "History guides",
   },
 ];
 
@@ -45,42 +45,42 @@ export interface HomeSection {
 }
 
 export const coreSections: HomeSection[] = [
-  { slug: "shore-excursions", number: "01", title: "Shore Excursions", description: "Roman Highlights, walking tours, tapas, Murcia, kayaking and private experiences — with honest Editor's Choice guidance.", href: "/shore-excursions", cta: "Browse excursions" },
-  { slug: "cruise-port-guide", number: "02", title: "Cartagena Cruise Port Guide", description: "Muelle Alfonso XII terminal, walking distances, Roman sights from the ship and return-to-ship timing.", href: "/cruise-port-guide", cta: "Read the guide" },
-  { slug: "roman", number: "03", title: "Roman Cartagena", description: "Theatre, Forum, Punic Wall and why Roman Highlights is our Editor's Choice for first-time visitors.", href: "/roman-theatre-cartagena", cta: "Roman guides" },
-  { slug: "planner", number: "04", title: "Cartagena Cruise Planner", description: "Enter ship times, interests and mobility — get tailored itineraries with return-to-ship confidence.", href: "/cruise-planner", cta: "Start planning" },
-  { slug: "one-day", number: "05", title: "One Day in Cartagena", description: "Roman Cartagena, tapas afternoons, Murcia excursions and easy walking days matched to your port window.", href: "/one-day-in-cartagena-from-a-cruise-ship", cta: "See day plans" },
-  { slug: "schedules", number: "06", title: "Cruise Ship Schedules", description: "Year and month schedule views ready for CSV imports — see which ships share your port day.", href: "/ship-schedules", cta: "Check schedules" },
-  { slug: "guides", number: "07", title: "Cartagena Authority Guides", description: "Murcia, tapas, beaches, kayaking, maritime history and independent vs ship excursions — practical cruise passenger advice.", href: "/best-things-to-do-in-cartagena-from-a-cruise-ship", cta: "Read guides" },
-  { slug: "faq", number: "08", title: "FAQ", description: "Common Cartagena cruise questions — walking distances, Roman tickets, Murcia timing and return buffers.", href: "/faq", cta: "View FAQ" },
+  { slug: "shore-excursions", number: "01", title: "Shore Excursions", description: "Premium, cruise-timed tours of Cagliari, Nora, flamingo wetlands, Gulf of Angels boat trips and Sardinian food and wine.", href: "/shore-excursions", cta: "Browse excursions" },
+  { slug: "cruise-port-guide", number: "02", title: "Cagliari Cruise Port Guide", description: "Where ships dock at Stazione Marittima, walking distances to Castello, taxi options and return-to-ship timing.", href: "/cruise-port-guide", cta: "Read the guide" },
+  { slug: "one-day", number: "03", title: "One Day in Cagliari", description: "Realistic port-day itineraries — historic Cagliari, Nora, flamingos, boat tours or beach escape matched to your hours.", href: "/one-day-in-cagliari-from-a-cruise-ship", cta: "See day plans" },
+  { slug: "nora", number: "04", title: "Nora from the Port", description: "Drive times, what fits your port window and how to visit Sardinia's greatest coastal archaeology with confidence.", href: "/nora-archaeological-site", cta: "Nora guide" },
+  { slug: "food", number: "05", title: "Sardinian Food & Wine", description: "Markets, regional specialities, Cannonau tastings and why Cagliari is one of the Mediterranean's great culinary ports.", href: "/sardinian-food-guide", cta: "Food guide" },
+  { slug: "ship-schedules", number: "06", title: "Cruise Ship Schedules", description: "See which ships are scheduled at Cagliari before you book excursions or day trips.", href: "/ship-schedules", cta: "Check schedules" },
+  { slug: "cruise-planner", number: "07", title: "Cagliari Cruise Planner", description: "Enter your ship times and interests — get tailored excursion ideas with return-to-ship confidence.", href: "/cruise-planner", cta: "Start planning" },
+  { slug: "compare", number: "08", title: "Independent vs Ship Excursions", description: "Compare cruise-line tours with independent options — flexibility, value and timing.", href: "/independent-vs-cruise-line-excursions", cta: "Compare options" },
 ];
 
 export function getHomepageFaqs(): FAQ[] {
   return [
     {
-      question: "Where do cruise ships dock in Cartagena, Spain?",
+      question: "Where do cruise ships dock in Cagliari?",
       answer:
-        "Most ships berth at Muelle Alfonso XII on the naval port waterfront, within walking distance of the old town and Roman Theatre. See our Cartagena Cruise Port Guide for terminal details and walking times.",
+        "Most ships berth at Stazione Marittima on the waterfront south of the historic centre, with Castello and the Bastione di Saint Remy reachable on foot in 20–30 minutes. See our Cagliari Cruise Port Guide for terminal details and realistic walking times.",
     },
     {
-      question: "What is the best thing to do in Cartagena on a cruise port day?",
+      question: "Should I stay in Cagliari or visit Nora on a port day?",
       answer:
-        "For most first-timers it is the Roman Theatre and Forum district — book timed entry or take Roman Highlights, our Editor's Choice. Food lovers should add a tapas stop; confident walkers can follow our Old Town Walking Guide. Our Cruise Planner tailors this to your hours ashore.",
+        "It depends on your hours ashore and interests. Nora needs roughly 45 minutes each way plus 2–3 hours at the site — ideal on standard or long calls. Historic Cagliari is walkable and rewarding for shorter calls. Our planner helps you choose.",
     },
     {
-      question: "What is Roman Highlights and why is it your Editor's Choice?",
+      question: "Can I see flamingos from the Cagliari cruise port?",
       answer:
-        "Cartagena Roman Highlights is our flagship small-group excursion covering the Roman Theatre, Forum area and harbour views. We recommend it after comparing ship tours, DIY routes and independent operators — not marketing, but the experience we would genuinely suggest for first-time visitors.",
+        "Yes. Parco Molentargius-Saline lies between the city and Poetto beach, with pink flamingos visible year-round. It is one of the easiest wildlife experiences from Stazione Marittima — see our Molentargius Flamingo Park guide.",
     },
     {
       question: "How much time do I need to get back to my ship?",
       answer:
-        "Allow 45 minutes buffer for old-town walking and Roman sights. Murcia and coastal kayaking need 60–75 minutes. Cartagena's compact layout makes return timing easier than most Mediterranean ports.",
+        "Allow 45–60 minutes buffer for Castello walks, 60–75 minutes for Nora or Molentargius, and only attempt Su Nuraxi di Barumini on port days with 8+ usable hours ashore. Always confirm all-aboard with your cruise line.",
     },
     {
-      question: "Can I do Murcia and Cartagena Roman sights on the same port day?",
+      question: "Should I book a cruise-line excursion or go independent in Cagliari?",
       answer:
-        "Not comfortably on a standard call. Murcia is 45–60 minutes each way — choose Murcia for a full inland day or stay in Cartagena for Roman archaeology and tapas. See our Murcia from Cartagena guide.",
+        "Ship excursions guarantee the vessel waits if you're delayed. Independent tours often offer smaller groups, better food focus and more flexibility — but you must respect all-aboard times. See our Independent vs Cruise Line Excursions guide.",
     },
   ];
 }

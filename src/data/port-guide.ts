@@ -8,24 +8,9 @@ export interface Terminal {
 }
 
 export const terminals: Terminal[] = [
-  {
-    name: "Muelle Alfonso XII — Cruise Terminal",
-    quay: "Main cruise berth on the naval port waterfront",
-    usedBy: "Most Mediterranean cruise ships calling at Cartagena",
-    cityAccess: "10–15 min walk to Calle Mayor and the Roman Theatre district",
-  },
-  {
-    name: "Muelle de la Curra",
-    quay: "Secondary berths on the port",
-    usedBy: "Occasional assignments and smaller vessels",
-    cityAccess: "Similar walking distance to the old town — confirm your berth on arrival",
-  },
-  {
-    name: "Tender operations",
-    quay: "Anchorage in the Bay of Cartagena",
-    usedBy: "Rare — when berths are full or for specific vessel types",
-    cityAccess: "Tender to the waterfront — add 20–30 min each way versus a direct berth",
-  },
+  { name: "Stazione Marittima", quay: "Molo Sant'Agostino / Via Roma waterfront", usedBy: "Most cruise ships calling at Cagliari", cityAccess: "20–30 min walk to Castello; taxis at terminal exit" },
+  { name: "Molo Ichnusa", quay: "Adjacent commercial cruise berths", usedBy: "Some larger vessels and seasonal assignments", cityAccess: "Similar walk to Via Roma and Castello elevator" },
+  { name: "Outer port berths", quay: "Porto di Cagliari commercial zone", usedBy: "Occasional assignments requiring bus transfer", cityAccess: "Shuttle or taxi to historic centre (~15 min)" },
 ];
 
 export interface PortGuideSection {
@@ -35,50 +20,40 @@ export interface PortGuideSection {
 
 export const portGuideSections: PortGuideSection[] = [
   {
-    heading: "Why Cartagena is one of the Mediterranean's easiest cruise ports",
+    heading: "Where cruise ships dock in Cagliari",
     paragraphs: [
-      "Cartagena, Spain is a revelation for cruise passengers who expect a long shuttle ride and a generic resort town. The cruise terminal at Muelle Alfonso XII sits on the naval port waterfront, roughly 10–15 minutes on foot from Calle Mayor, the Roman Theatre and the compact old town. That walkability — combined with 3,000 years of layered history — makes Cartagena one of the most rewarding short port calls in the Western Mediterranean.",
-      "Founded as Qart Hadasht by the Carthaginians and rebuilt as Carthago Nova by the Romans, the city served as Hannibal's base and later one of Rome's most important Spanish ports. Today you can walk from your ship to a first-century Roman theatre, Punic walls, Bourbon fortifications and a lively Spanish tapas culture without hiring a coach for the essentials.",
+      "Cagliari is Sardinia's capital and the main cruise gateway to Southern Sardinia — a hilltop city above the Gulf of Angels with Nuragic heritage, Roman ruins, flamingo lagoons and some of the Mediterranean's finest beaches within an hour. Most vessels berth at Stazione Marittima on the waterfront, putting the Castello district, Bastione di Saint Remy and Via Roma shopping within a 20–30 minute walk or a short taxi ride.",
+      "This geography defines Cagliari as more than a generic Mediterranean port: you can explore 3,000 years of history on foot in the morning, see pink flamingos at Molentargius after lunch, or board a coach for Nora's Roman theatre and Su Nuraxi's UNESCO nuraghe when your port window allows.",
     ],
   },
   {
-    heading: "Cruise terminal and passenger facilities",
+    heading: "Getting from the port to Castello and beyond",
     paragraphs: [
-      "The Cartagena cruise terminal is functional rather than lavish — a working Spanish naval port adapted for passenger traffic. Expect basic services: toilets, some seating, taxi ranks outside and shore-excursion meeting points on the waterfront. Signage leads you toward the old town via the port promenade and Calle Real.",
-      "On busy multi-ship days, allow an extra 15–20 minutes for immigration and terminal exit before your excursion departure time. Wi‑Fi is available in the terminal area; ATMs and cafés line the route toward the city centre within a few minutes' walk.",
+      "For city exploration, walking or the Castello elevator from Via Roma is often the best option. From Stazione Marittima, follow the waterfront toward Largo Carlo Felice, then climb into Castello on foot or use the public elevator to the Bastione di Saint Remy terrace. Taxis wait at the terminal for Nora, Barumini, Molentargius and Gulf of Angels boat departures.",
+      "CTM buses connect the port to Poetto beach (lines PF/PQ) and Molentargius. For Nora (~45 min each way), Su Nuraxi di Barumini (~1 hour) or Gulf of Angels boat tours, pre-booked excursions or private transfers are strongly recommended — they track your ship's all-aboard time.",
+      "Do not assume every berth is equally walkable. Confirm your terminal assignment on arrival; outer port berths may require a shuttle or taxi to Castello.",
     ],
   },
   {
-    heading: "Walking distances and vertical geography",
+    heading: "Facilities and practicalities",
     paragraphs: [
-      "From the terminal, Calle Mayor and the Roman Theatre district are 10–15 minutes on foot along mostly flat promenades. The Roman Forum archaeological quarter and Punic Wall sit on the slopes above — lifts and tunnels connect levels, but expect some inclines. The Castle of the Conception crowns the hill with panoramic harbour views, reachable on foot (20–25 min uphill) or by lift from Gisbert Street.",
-      "Murcia lies inland — approximately 45–60 minutes by road each way. It is a full-day excursion, not a morning add-on. Coastal kayaking and the outlying beaches at La Manga require transfers; the historic core does not.",
+      "The euro is the local currency. Italian is the main language; English is common on organised tours and in central tourist areas. ATMs and cafés are on Via Roma and in Castello; plan ahead for inland wine-country trips.",
+      "Cagliari is a safe, relaxed city, but use normal precautions in busy markets and on crowded port days. Download offline maps before leaving the ship — mobile signal can be patchy near the terminal.",
+      "Summer calls can be hot; spring and autumn are ideal for walking Castello's inclines. The Gulf of Angels breeze cools the waterfront even in July.",
     ],
   },
   {
-    heading: "Return-to-ship timing from Cartagena",
+    heading: "Return-to-ship timing",
     paragraphs: [
-      "Confirm your all-aboard time — usually 30–60 minutes before departure — and work backwards. Old-town walking and Roman Theatre visits need 45 minutes return buffer. Murcia excursions need 60–75 minutes because motorway traffic can slow afternoon returns. Kayaking and coastal tours need 60 minutes.",
-      "Ship-run excursions guarantee the vessel waits if you are delayed on an official tour. Independent and small-group passengers must respect all-aboard times themselves. Reputable local operators track your ship's published departure; DIY walkers should head back via the port promenade with a comfortable margin.",
+      "Confirm your all-aboard time (usually 30–60 minutes before departure) and work backwards. Castello walks need 45–60 minutes return buffer. Nora and Molentargius need 60–75 minutes. Su Nuraxi di Barumini should only be attempted on long port days with a reputable operator.",
+      "Traffic on SS195 toward Pula can slow afternoon returns, especially on multi-ship days. If you book independently, choose operators that track ship schedules. Ship-run excursions guarantee the vessel waits; independent passengers must manage their own timing.",
     ],
   },
 ];
 
 export const portGuideFaqs: FAQ[] = [
-  {
-    question: "How far is the Roman Theatre from the Cartagena cruise port?",
-    answer: "About 10–15 minutes on foot from Muelle Alfonso XII through the old town to the Roman Theatre. It is one of the closest major sights to the terminal in any Mediterranean port.",
-  },
-  {
-    question: "Can I walk from the cruise ship to Cartagena old town?",
-    answer: "Yes — the terminal is on the waterfront and the historic centre is compact and walkable. Wear comfortable shoes for cobbles and some uphill sections toward the castle.",
-  },
-  {
-    question: "How long does it take to reach Murcia from Cartagena cruise port?",
-    answer: "Approximately 45–60 minutes by road each way. Budget a full day for Murcia — it does not pair comfortably with a thorough Roman Cartagena visit on a standard port call.",
-  },
-  {
-    question: "What facilities are at the Cartagena cruise terminal?",
-    answer: "Basic terminal services — toilets, seating, taxi rank and excursion meeting points. Shops, ATMs and cafés are on the waterfront walk toward the city centre.",
-  },
+  { question: "How far is Cagliari Castello from the cruise terminal?", answer: "About 20–30 minutes on foot from Stazione Marittima to the Bastione di Saint Remy and cathedral. The Castello elevator from Via Roma saves uphill walking." },
+  { question: "Can I walk to Nora from the cruise port?", answer: "No — Nora is roughly 45 minutes by road at Pula, south of Cagliari. It requires a half-day or full-day excursion." },
+  { question: "Is there a shuttle from the Cagliari cruise terminal?", answer: "Some cruise lines offer their own shuttles, especially from outer berths. Castello is walkable from most central berths — check your terminal assignment on arrival." },
+  { question: "How much time do I need to get back to my ship?", answer: "Allow 45–60 minutes buffer for city walks, 60–75 minutes for Nora or Molentargius, and only attempt Su Nuraxi on port days with 8+ usable hours ashore." },
 ];

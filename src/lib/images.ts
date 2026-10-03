@@ -8,39 +8,43 @@ const B = "/images";
 export const siteImages = {
   hero: {
     src: `${B}/hero-home.jpg`,
-    alt: "Cartagena Roman Theatre, harbour and old town from the cruise port, Spain",
+    alt: "Cagliari skyline, Bastione di Saint Remy and Gulf of Angels coastline above the cruise port",
   },
   ogDefault: {
     src: `${B}/og-default.jpg`,
-    alt: "Cartagena cruise planning — Roman Theatre, harbour and historic old town, Spain",
+    alt: "Cagliari cruise planning — Castello, flamingos and Southern Sardinia coastline",
   },
   logo: {
     src: `${B}/logo-mark.svg`,
-    alt: "Cartagena Shore Excursions",
+    alt: "Cagliari Shore Excursions",
   },
   port: {
     src: `${B}/cruise-port.jpg`,
-    alt: "Cruise ships at Cartagena cruise port, Muelle Alfonso XII, Spain",
+    alt: "Cruise ships berthed at Cagliari Stazione Marittima on the Gulf of Angels",
   },
 } as const;
 
 export const subjectImages: Record<string, SiteImage> = {
-  cartagena: { src: `${B}/cartagena.jpg`, alt: "Cartagena old town and harbour from the cruise port" },
-  "roman-theatre": { src: `${B}/roman-theatre.jpg`, alt: "Roman Theatre of Cartagena, Spain" },
-  "roman-forum": { src: `${B}/roman-forum.jpg`, alt: "Roman Forum archaeological quarter in Cartagena" },
-  "punic-wall": { src: `${B}/punic-wall.jpg`, alt: "Punic Wall archaeological experience, Cartagena" },
-  castle: { src: `${B}/castle.jpg`, alt: "Castle of the Conception overlooking Cartagena harbour" },
-  "old-town": { src: `${B}/old-town.jpg`, alt: "Cartagena historic old town lanes near the cruise port" },
-  harbour: { src: `${B}/harbour.jpg`, alt: "Cartagena naval harbour and waterfront promenade" },
-  murcia: { src: `${B}/murcia.jpg`, alt: "Murcia cathedral and city centre from Cartagena cruise port day trip" },
-  tapas: { src: `${B}/tapas.jpg`, alt: "Cartagena tapas and local Spanish food for cruise passengers" },
-  market: { src: `${B}/market.jpg`, alt: "Mercado de Santa Florentina and Cartagena market culture" },
-  maritime: { src: `${B}/maritime.jpg`, alt: "Cartagena maritime history and naval port heritage" },
-  beach: { src: `${B}/beach.jpg`, alt: "Cartagena beaches and Costa Cálida coastline" },
-  kayaking: { src: `${B}/kayaking.jpg`, alt: "Coastal kayaking adventures near Cartagena, Spain" },
-  family: { src: `${B}/family.jpg`, alt: "Family-friendly Cartagena sights near the cruise port" },
-  private: { src: `${B}/private.jpg`, alt: "Private Cartagena experience for cruise passengers" },
-  planner: { src: `${B}/cartagena.jpg`, alt: "Planning a Cartagena cruise port day in Spain" },
+  "old-town": { src: `${B}/old-town.jpg`, alt: "Castello quarter lanes and limestone terraces in Cagliari" },
+  bastione: { src: `${B}/bastione.jpg`, alt: "Bastione di Saint Remy terrace overlooking Cagliari and the Gulf of Angels" },
+  cathedral: { src: `${B}/cathedral.jpg`, alt: "Cagliari Cathedral in the Castello district" },
+  poetto: { src: `${B}/poetto.jpg`, alt: "Poetto beach and turquoise waters on the Gulf of Angels" },
+  flamingos: { src: `${B}/flamingos.jpg`, alt: "Pink flamingos at Parco Molentargius near Cagliari" },
+  nora: { src: `${B}/nora.jpg`, alt: "Roman ruins at Nora archaeological site near Pula" },
+  nuraghe: { src: `${B}/nuraghe.jpg`, alt: "Su Nuraxi di Barumini UNESCO nuraghe in Sardinia" },
+  boat: { src: `${B}/boat.jpg`, alt: "Boat tour on the Gulf of Angels from Cagliari" },
+  sailing: { src: `${B}/sailing.jpg`, alt: "Sailing catamaran on the Gulf of Angels" },
+  snorkel: { src: `${B}/snorkel.jpg`, alt: "Snorkelling in clear Sardinian coastal waters" },
+  food: { src: `${B}/food.jpg`, alt: "Sardinian food and fresh seafood at Mercato San Benedetto" },
+  wine: { src: `${B}/wine.jpg`, alt: "Sardinian Cannonau wine tasting in the Campidano" },
+  villages: { src: `${B}/villages.jpg`, alt: "Traditional Sardinian village in the Campidano hills" },
+  "city-highlights": { src: `${B}/city-highlights.jpg`, alt: "Cagliari Castello district and Gulf of Angels views" },
+  "private-tour": { src: `${B}/private-tour.jpg`, alt: "Private guided tour exploring Southern Sardinia from Cagliari" },
+  family: { src: `${B}/family.jpg`, alt: "Family-friendly Cagliari sights and flamingo park" },
+  couples: { src: `${B}/couples.jpg`, alt: "Romantic Gulf of Angels sunset from Cagliari" },
+  nature: { src: `${B}/nature.jpg`, alt: "Molentargius lagoon wildlife near Cagliari cruise port" },
+  history: { src: `${B}/history.jpg`, alt: "Roman amphitheatre and ancient heritage in Cagliari" },
+  planner: { src: `${B}/city-highlights.jpg`, alt: "Planning a Cagliari cruise day in Southern Sardinia" },
 };
 
 function pick(key: string): SiteImage {
@@ -48,62 +52,55 @@ function pick(key: string): SiteImage {
 }
 
 const excursionImageKeys: Record<string, string> = {
-  "cartagena-roman-highlights": "roman-theatre",
-  "roman-walking-tour": "roman-forum",
-  "cartagena-murcia": "murcia",
-  "tapas-local-food-experience": "tapas",
-  "coastal-kayaking": "kayaking",
-  "harbour-panoramic-tour": "harbour",
-  "private-cartagena-experience": "private",
-  "family-friendly-cartagena": "family",
+  "cagliari-city-highlights": "city-highlights",
+  "nora-archaeological-tour": "nora",
+  "flamingos-and-nature": "flamingos",
+  "gulf-of-angels-boat-tour": "boat",
+  "sailing-experience": "sailing",
+  "snorkelling-experience": "snorkel",
+  "sardinian-wine-experience": "wine",
+  "sardinian-food-experience": "food",
+  "private-south-sardinia-tour": "private-tour",
+  "small-group-cagliari-highlights": "old-town",
 };
 
 export function getExcursionImage(slug: string): SiteImage {
-  return pick(excursionImageKeys[slug] ?? "cartagena");
+  return pick(excursionImageKeys[slug] ?? "city-highlights");
 }
 
-export const excursionsHubImage = pick("roman-theatre");
+export const excursionsHubImage = pick("bastione");
+
+const attractionImageKeys: Record<string, string> = {
+  "bastione-di-saint-remy": "bastione",
+  "cagliari-cathedral": "cathedral",
+  "poetto-beach-from-cruise-port": "poetto",
+  "molentargius-flamingo-park": "flamingos",
+  "nora-archaeological-site": "nora",
+  "su-nuraxi-unesco-site": "nuraghe",
+};
+
+export function getAttractionImage(slug: string): SiteImage {
+  return pick(attractionImageKeys[slug] ?? "city-highlights");
+}
 
 const guideImageKeys: Record<string, string> = {
-  "why-roman-highlights-is-our-editors-choice": "roman-theatre",
-  "roman-theatre-cartagena": "roman-theatre",
-  "roman-forum-archaeological-quarter": "roman-forum",
-  "punic-wall-experience": "punic-wall",
-  "castle-of-the-conception": "castle",
-  "cartagena-old-town-walking-guide": "old-town",
-  "cartagena-harbour-walking-route": "harbour",
-  "best-things-to-do-in-cartagena-from-a-cruise-ship": "cartagena",
-  "one-day-in-cartagena-from-a-cruise-ship": "cartagena",
-  "murcia-from-cartagena-cruise-port": "murcia",
-  "cartagena-food-tapas-guide": "tapas",
-  "cartagena-market-guide": "market",
-  "cartagena-maritime-history": "maritime",
-  "cartagena-beaches": "beach",
-  "kayaking-coastal-adventures": "kayaking",
-  "independent-vs-cruise-line-excursions": "harbour",
-  "best-cartagena-excursions-for-first-time-visitors": "roman-theatre",
-  "best-cartagena-excursions-for-history-lovers": "roman-forum",
-  "best-cartagena-excursions-for-families": "family",
-  "best-cartagena-excursions-for-food-lovers": "tapas",
+  "cagliari-old-town-walking-guide": "old-town",
+  "gulf-of-angels-boat-tours": "boat",
+  "sailing-experiences-from-cagliari": "sailing",
+  "snorkelling-from-cagliari": "snorkel",
+  "best-things-to-do-in-cagliari-from-a-cruise-ship": "city-highlights",
+  "one-day-in-cagliari-from-a-cruise-ship": "city-highlights",
+  "sardinian-food-guide": "food",
+  "sardinian-wine-experiences": "wine",
+  "traditional-sardinian-villages": "villages",
+  "independent-vs-cruise-line-excursions": "private-tour",
+  "best-cagliari-excursions-for-families": "family",
+  "best-cagliari-excursions-for-couples": "couples",
+  "best-cagliari-excursions-for-nature-lovers": "nature",
+  "best-cagliari-excursions-for-history-lovers": "history",
 };
 
 export function getGuideImage(slug: string): SiteImage {
-  const key = guideImageKeys[slug] ?? "cartagena";
+  const key = guideImageKeys[slug] ?? "city-highlights";
   return pick(key);
 }
-
-export function getComparisonImage(_slug: string): SiteImage {
-  return pick("cartagena");
-}
-
-export function getComparisonOgImage(slug: string): SiteImage {
-  return getComparisonImage(slug);
-}
-
-/** Hero showcase tiles for homepage */
-export const heroShowcaseImages = [
-  pick("roman-theatre"),
-  pick("harbour"),
-  pick("old-town"),
-  pick("castle"),
-] as const;

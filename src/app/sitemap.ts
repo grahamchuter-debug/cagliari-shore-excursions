@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { absoluteUrl } from "@/lib/paths";
 import { getAllExcursionSlugs } from "@/data/excursions";
+import { getAllAttractionSlugs } from "@/data/attractions";
 import { getAllGuideSlugs } from "@/data/guides";
-import { getAllComparisonSlugs } from "@/data/comparisons";
 import { getAllSchedulePortSlugs, getVerifiedMonthKeys } from "@/data/schedules";
 import { SCHEDULE_YEARS, portYearPath, portMonthPath } from "@/lib/schedule-utils";
 
@@ -26,8 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const authorityPages = [
+    ...getAllAttractionSlugs().map((s) => `/${s}`),
     ...getAllGuideSlugs().map((s) => `/${s}`),
-    ...getAllComparisonSlugs().map((s) => `/${s}`),
   ];
 
   const dynamicPages = [

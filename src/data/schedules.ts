@@ -11,40 +11,40 @@ const SCHEDULE_FAQS = [
   {
     question: "How accurate are the Cagliari cruise ship schedules?",
     answer:
-      "Schedules are compiled from published cruise timetables and updated periodically. Times, terminals and dates can change, so always confirm your arrival and departure with your cruise line before booking shore excursions.",
+      "Schedules are compiled from published cruise timetables and updated periodically. Times, berths and dates can change — always confirm your arrival and departure with your cruise line before booking shore excursions.",
   },
   {
-    question: "Where do cruise ships dock in Cagliari, Spain?",
+    question: "Where do ships dock when they call at Cagliari?",
     answer:
-      "Most ships berth at Muelle Alfonso XII on the naval port waterfront, within walking distance of the old town and Roman Theatre. Your cruise documents confirm the exact berth.",
+      "Most vessels berth at Stazione Marittima on the waterfront, within walking distance of Castello. See our Cagliari Cruise Port Guide for details.",
   },
   {
-    question: "Why check ship schedules before booking Cagliari excursions?",
+    question: "When is Cagliari cruise season?",
     answer:
-      "Multi-ship days increase queues at the Roman Theatre and popular restaurants. Knowing how many vessels share your port day helps you choose between a guided tour, an early DIY start or a relaxed walking day.",
+      "Cagliari sees most cruise calls from April through October, with peak traffic in May, June, September and October. Winter calls occur but are less frequent.",
   },
 ];
 
 const SCHEDULE_TIPS = [
-  "Check how many ships are in port before booking Roman Theatre tickets",
-  "Confirm your berth at Muelle Alfonso XII or secondary quays",
-  "Book Murcia excursions only on longer port days (8+ hours ashore)",
-  "Compare your time in port before choosing kayaking or coastal tours",
+  "Check how many ships share your port day before booking Nora or Barumini coach tours",
+  "Confirm your berth — most calls are walkable to Castello from Stazione Marittima",
+  "Book Gulf of Angels boat tours and inland archaeology early on multi-ship days",
+  "Compare your hours ashore before choosing between city walks and Su Nuraxi day trips",
 ];
 
 export const schedulePorts: ShipSchedulePort[] = [
   {
     slug: "cagliari",
     name: "Cagliari",
-    country: "Spain",
+    country: "Italy",
     seoTitle: "Cagliari Cruise Ship Schedule 2026 & 2027",
     metaDescription:
-      "Cagliari cruise ship schedule hub. See which ships are in port and plan Roman Theatre visits, old-town walks and Murcia excursions around published arrival and departure times.",
+      "Cagliari cruise ship schedule hub. See which ships are in port and plan Nora, Molentargius, Gulf of Angels and Cagliari shore excursions around published arrival and departure times.",
     intro:
-      "Cagliari is a major Western Mediterranean port of call with year-round cruise traffic. Check which ships are scheduled before you book Roman archaeology tours, tapas experiences or Murcia day trips.",
-    description: "Walkable Roman port on Spain's Costa Cálida — one of the Mediterranean's easiest cruise calls.",
+      "Cagliari is Sardinia's main cruise port with ships berthing at Stazione Marittima. Check which vessels are scheduled before you book shore excursions, Nora archaeology tours or Gulf of Angels boat trips.",
+    description: "Southern Sardinia's cruise gateway — ships dock on the waterfront with Castello within walking distance.",
     scheduleOverview:
-      "Cagliari sees peak cruise traffic from March through November, with winter calls from repositioning and Mediterranean itineraries.",
+      "Cagliari sees seasonal cruise traffic from April through October, with calls from Mediterranean and repositioning itineraries.",
     planningTips: SCHEDULE_TIPS,
     faqs: SCHEDULE_FAQS,
   },

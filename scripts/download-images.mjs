@@ -1,129 +1,140 @@
-// Downloads Cartagena / Murcia imagery from Wikimedia Commons into public/images.
-import { writeFileSync, mkdirSync, existsSync, statSync } from "fs";
+// Downloads Cagliari / Sardinia imagery from Wikimedia Commons into public/images.
+import { writeFileSync, mkdirSync, existsSync, statSync, unlinkSync, readdirSync } from "fs";
 import { join } from "path";
+import { execSync } from "child_process";
 
 const OUT = "public/images";
 const FORCE = process.argv.includes("--force");
-mkdirSync(OUT, { recursive: true });
-const WIDTH = 1600;
-const UA = "cartagena-shore-excursions/1.0 (image fetch; contact webmaster)";
+const UA = "cagliari-shore-excursions/1.0 (contact: hello@cagliarishoreexcursions.com)";
+const MIN_BYTES = 30000;
+const DOWNLOAD_DELAY_MS = 4000;
 
-const targets = {
-  "cartagena.jpg": ["Cartagena Spain harbour", "Cartagena Murcia port", "Cartagena city Spain"],
-  "roman-theatre.jpg": ["Teatro Romano Cartagena", "Roman Theatre Cartagena Spain"],
-  "roman-forum.jpg": [
-    "Museo Foro Romano Cartagena",
-    "Roman Forum Cartagena Spain",
-    "Teatro Romano Cartagena interior",
+mkdirSync(OUT, { recursive: true });
+
+/** Verified Wikimedia Commons URLs — curated for Cagliari cruise site subjects. */
+const directUrls = {
+  "bastione.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bastione_San_Remy_seen_from_piazza_Costituzione.jpg/1920px-Bastione_San_Remy_seen_from_piazza_Costituzione.jpg",
+  "old-town.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Castello%2C_Cagliari.jpg/1920px-Castello%2C_Cagliari.jpg",
+  "city-highlights.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Cagliari_Panorama_del_Quartiere_di_Castello.jpg/1920px-Cagliari_Panorama_del_Quartiere_di_Castello.jpg",
+  "hero-home.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Cagliari_Panorama_del_Quartiere_di_Castello.jpg/1920px-Cagliari_Panorama_del_Quartiere_di_Castello.jpg",
+  "og-default.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Skyline_Cagliari.JPG/1920px-Skyline_Cagliari.JPG",
+  "cathedral.jpg": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Cagliari_kathedrale.jpg",
+  "history.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Cagliari_Anfiteatro_Romano.jpg/1920px-Cagliari_Anfiteatro_Romano.jpg",
+  "poetto.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/POETTO_TORRE_CAGLIARI.jpg/1280px-POETTO_TORRE_CAGLIARI.jpg",
+  "flamingos.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/d/dd/Greater_Flamingo_%28Fenicottero_Rosa%29_%28Phoenicopterus_roseus%29_-_Cagliari%2C_Italy_2024-03-25.jpg",
+  "nature.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Parco_Molentargius_1.JPG/1920px-Parco_Molentargius_1.JPG",
+  "nora.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Archaeological_site_Nora_-_Pula_-_Sardinia_-_Italy_-_04.jpg/1920px-Archaeological_site_Nora_-_Pula_-_Sardinia_-_Italy_-_04.jpg",
+  "nuraghe.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Nuraghe_Su_Nuraxi_-_Barumini_-_Sardinia_-_Italy_-_27.jpg/1920px-Nuraghe_Su_Nuraxi_-_Barumini_-_Sardinia_-_Italy_-_27.jpg",
+  "boat.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Baunei_-_panoramio_%281%29.jpg/1920px-Baunei_-_panoramio_%281%29.jpg",
+  "sailing.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Sailing_in_Sardinia_%2C_La_Caletta_-_panoramio_%281%29.jpg/1920px-Sailing_in_Sardinia_%2C_La_Caletta_-_panoramio_%281%29.jpg",
+  "snorkel.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Baunei_-_panoramio_%281%29.jpg/1920px-Baunei_-_panoramio_%281%29.jpg",
+  "food.jpg": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Sanbenedetto.jpg",
+  "wine.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Wine_country_near_Nuoro%2C_Sardinia_-_clurr.jpg/1920px-Wine_country_near_Nuoro%2C_Sardinia_-_clurr.jpg",
+  "villages.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Murals_in_Orgosolo_28.jpg/1920px-Murals_in_Orgosolo_28.jpg",
+  "cruise-port.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Staro_mesto_%28Castello%29%2C_Cagliari.jpg/1920px-Staro_mesto_%28Castello%29%2C_Cagliari.jpg",
+  "private-tour.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Staro_mesto_%28Castello%29%2C_Cagliari.jpg/1920px-Staro_mesto_%28Castello%29%2C_Cagliari.jpg",
+  "family.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/POETTO_TORRE_CAGLIARI.jpg/1280px-POETTO_TORRE_CAGLIARI.jpg",
+  "couples.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cagliari_-_Sella_del_Diavolo_-_Capo_Sant%27Elia.jpg/1920px-Cagliari_-_Sella_del_Diavolo_-_Capo_Sant%27Elia.jpg",
+};
+
+const alternates = {
+  "flamingos.jpg": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Parco_Molentargius_1.JPG/1920px-Parco_Molentargius_1.JPG",
   ],
-  "punic-wall.jpg": ["Muralla Punica Cartagena", "Punic Wall Cartagena Spain", "Cartagena archaeology"],
-  "castle.jpg": [
-    "Castillo de la Concepcion Cartagena",
-    "Conception Castle Cartagena",
-    "Cartagena castle harbour view",
+  "wine.jpg": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Cagliari_Anfiteatro_Romano.jpg/1920px-Cagliari_Anfiteatro_Romano.jpg",
   ],
-  "old-town.jpg": [
-    "Calle Mayor Cartagena",
-    "Cartagena old town Spain",
-    "Cartagena historic centre Murcia",
+  "villages.jpg": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Castello%2C_Cagliari.jpg/1920px-Castello%2C_Cagliari.jpg",
   ],
-  "harbour.jpg": [
-    "Cartagena harbour Spain",
-    "Cartagena naval port",
-    "Cartagena waterfront Murcia",
+  "food.jpg": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Castello%2C_Cagliari.jpg/1920px-Castello%2C_Cagliari.jpg",
   ],
-  "murcia.jpg": ["Murcia cathedral Spain", "Catedral Murcia", "Murcia city Spain"],
-  "tapas.jpg": ["Spanish tapas", "Tapas bar Spain", "Pinchos Spanish food"],
-  "market.jpg": ["Spanish market food", "Mercado Spain vegetables", "Cartagena Spain market"],
-  "maritime.jpg": [
-    "Cartagena naval museum",
-    "Submarine Peral Cartagena",
-    "Cartagena maritime museum",
-  ],
-  "beach.jpg": ["La Manga del Mar Menor", "Cartagena beach Spain", "Costa Calida beach"],
-  "kayaking.jpg": ["Sea kayaking Mediterranean", "Kayaking Spain coast", "Kayak Mediterranean"],
-  "family.jpg": ["Cartagena Spain city", "Family travel Spain beach", "Cartagena cruise port"],
-  "private.jpg": ["Cartagena Spain sightseeing", "Cartagena guided tour", "Cartagena old town"],
-  "cruise-port.jpg": ["Cartagena cruise port", "Cruise ships Cartagena Spain", "Muelle Cartagena"],
-  "hero-home.jpg": [
-    "Panorama Roman Theatre Cartagena",
-    "Cartagena Spain panorama",
-    "Cartagena harbour aerial",
-  ],
-  "og-default.jpg": [
-    "Teatro Romano Cartagena",
-    "Cartagena Roman Theatre panorama",
-    "Cartagena Spain coastline",
+  "cruise-port.jpg": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bastione_San_Remy_seen_from_piazza_Costituzione.jpg/1920px-Bastione_San_Remy_seen_from_piazza_Costituzione.jpg",
   ],
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function searchThumb(term) {
-  const api =
-    "https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo" +
-    "&generator=search&gsrnamespace=6&gsrlimit=12" +
-    `&gsrsearch=${encodeURIComponent(term)}` +
-    `&iiprop=url|mime|size&iiurlwidth=${WIDTH}`;
-  let res;
-  for (let attempt = 0; attempt < 4; attempt++) {
-    await sleep(600 + attempt * 800);
-    try {
-      res = await fetch(api, { headers: { "User-Agent": UA } });
-      if (res.ok) break;
-    } catch {}
-    res = null;
+function downloadWithCurl(url, dest) {
+  try {
+    execSync(
+      `curl -fsSL -A ${JSON.stringify(UA)} ${JSON.stringify(url)} -o ${JSON.stringify(dest)}`,
+      { stdio: "pipe" },
+    );
+    return existsSync(dest) && statSync(dest).size >= MIN_BYTES;
+  } catch {
+    return false;
   }
-  if (!res || !res.ok) return [];
-  const data = await res.json();
-  const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
-  pages.sort((a, b) => (a.index ?? 99) - (b.index ?? 99));
-  const landscape = [];
-  const other = [];
-  for (const p of pages) {
-    const ii = p.imageinfo?.[0];
-    if (!ii || !/jpe?g/i.test(ii.mime || "")) continue;
-    const url = ii.thumburl || ii.url;
-    if ((ii.width || 0) >= (ii.height || 0)) landscape.push(url);
-    else other.push(url);
-  }
-  return [...landscape, ...other];
 }
 
-async function grab(candidates) {
-  for (const url of candidates) {
-    try {
-      const res = await fetch(url, { headers: { "User-Agent": UA } });
-      if (!res.ok) continue;
-      const buf = Buffer.from(await res.arrayBuffer());
-      if (buf.length < 15000) continue;
-      return { buf, url };
-    } catch {}
+function cleanupLegacyImages() {
+  const keep = new Set([...Object.keys(directUrls), "logo-mark.svg", "favicon.ico"]);
+  for (const name of readdirSync(OUT)) {
+    if (!keep.has(name)) {
+      unlinkSync(join(OUT, name));
+      console.log(`  removed legacy ${name}`);
+    }
   }
-  return null;
 }
 
 async function main() {
-  for (const [file, terms] of Object.entries(targets)) {
-    const dest = join(OUT, file);
-    if (!FORCE && existsSync(dest) && statSync(dest).size > 25000) {
-      console.log(`skip ${file} (exists)`);
+  console.log(`Cagliari image set: ${Object.keys(directUrls).length} files${FORCE ? " (force re-download)" : ""}`);
+  cleanupLegacyImages();
+
+  let ok = 0;
+  let fail = 0;
+
+  for (const [filename, url] of Object.entries(directUrls)) {
+    const dest = join(OUT, filename);
+    if (!FORCE && existsSync(dest) && statSync(dest).size > MIN_BYTES) {
+      console.log(`  skip ${filename} (exists)`);
+      ok++;
       continue;
     }
-    let candidates = [];
-    for (const term of terms) {
-      candidates.push(...(await searchThumb(term)));
-      if (candidates.length >= 6) break;
+
+    const candidates = [url, ...(alternates[filename] ?? [])];
+    let saved = false;
+    for (const u of candidates) {
+      await sleep(DOWNLOAD_DELAY_MS);
+      if (downloadWithCurl(u, dest)) {
+        console.log(`  ok   ${filename}`);
+        ok++;
+        saved = true;
+        break;
+      }
     }
-    candidates = [...new Set(candidates)];
-    const got = await grab(candidates);
-    if (got) {
-      writeFileSync(dest, got.buf);
-      console.log(`ok ${file} <- ${got.url.slice(0, 80)}…`);
-    } else {
-      console.warn(`FAIL ${file}`);
+    if (!saved) {
+      console.log(`  miss ${filename}`);
+      fail++;
     }
   }
+
+  console.log(`\nDone: ${ok} ok, ${fail} missed`);
 }
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

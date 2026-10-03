@@ -5,17 +5,6 @@ export interface FAQ {
 
 export type Pace = "Relaxed" | "Moderate" | "Active";
 
-export interface TimingPhase {
-  phase: string;
-  time: string;
-  detail: string;
-}
-
-export interface CruiseSnapshot {
-  label: string;
-  value: string;
-}
-
 export interface ExcursionPage {
   slug: string;
   title: string;
@@ -34,18 +23,89 @@ export interface ExcursionPage {
   tips: string[];
   faqs: FAQ[];
   relatedExcursionSlugs: string[];
-  relatedGuideSlugs?: string[];
   featured?: boolean;
-  editorsChoice?: boolean;
   availability?: "coming-soon" | "register-interest" | "available";
-  whyWeRecommend?: string[];
-  whoItSuits?: string[];
-  cruisePassengerSnapshot?: CruiseSnapshot[];
-  returnToShipReassurance?: string;
-  whatMakesDifferent?: string[];
-  smallGroupBenefits?: string[];
-  practicalTimings?: TimingPhase[];
-  scenicRouteHighlights?: string[];
+}
+
+export interface TransferOption {
+  name: string;
+  description: string;
+  duration: string;
+  priceEstimate: string;
+  bestFor: string;
+}
+
+export interface TransferPage {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  metaDescription: string;
+  category: string;
+  tagline: string;
+  overview: string;
+  body: string[];
+  options: TransferOption[];
+  timing: string[];
+  tips: string[];
+  faqs: FAQ[];
+  relatedTransferSlugs: string[];
+  featured?: boolean;
+}
+
+export interface HotelArea {
+  name: string;
+  description: string;
+  bestFor: string;
+}
+
+export interface HotelPick {
+  name: string;
+  description: string;
+  distance: string;
+}
+
+export interface HotelPage {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  metaDescription: string;
+  category: string;
+  tagline: string;
+  overview: string;
+  body: string[];
+  areas: HotelArea[];
+  picks: HotelPick[];
+  tips: string[];
+  faqs: FAQ[];
+  relatedHotelSlugs: string[];
+  featured?: boolean;
+}
+
+export interface GettingThereStep {
+  method: string;
+  detail: string;
+  time: string;
+  cost: string;
+}
+
+export interface AttractionPage {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  metaDescription: string;
+  attractionName: string;
+  tagline: string;
+  overview: string;
+  body: string[];
+  distanceFromPort: string;
+  travelTime: string;
+  timeNeeded: string;
+  gettingThere: GettingThereStep[];
+  highlights: string[];
+  tips: string[];
+  faqs: FAQ[];
+  relatedAttractionSlugs: string[];
+  relatedExcursionSlug?: string;
 }
 
 export interface ScheduleEntry {
@@ -103,32 +163,6 @@ export interface GuidePage {
   highlights?: string[];
   tips?: string[];
   recommendations?: GuideRecommendation[];
-  faqs: FAQ[];
-  relatedGuideSlugs: string[];
-  relatedExcursionSlugs?: string[];
-  imageKey?: string;
-}
-
-export interface ComparisonRow {
-  category: string;
-  optionA: string;
-  optionB: string;
-}
-
-export interface ComparisonPage {
-  slug: string;
-  title: string;
-  seoTitle: string;
-  metaDescription: string;
-  eyebrow: string;
-  optionA: string;
-  optionB: string;
-  summary: string;
-  verdict: string;
-  overview: string[];
-  comparisonTable: ComparisonRow[];
-  whenChooseA: string[];
-  whenChooseB: string[];
   faqs: FAQ[];
   relatedGuideSlugs: string[];
   relatedExcursionSlugs?: string[];

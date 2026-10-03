@@ -25,29 +25,28 @@ export interface PlannerResult {
   logistics: PlannerLink[];
   dayPlan: { time: string; text: string }[];
   returnConfidence: "high" | "medium" | "low";
-  itineraryTheme: string;
 }
 
 export const INTEREST_OPTIONS = [
-  { id: "roman", label: "Roman history" },
-  { id: "walking", label: "Walking & old town" },
-  { id: "food", label: "Food & tapas" },
-  { id: "murcia", label: "Murcia day trip" },
-  { id: "coastal", label: "Harbour & coast" },
-  { id: "family", label: "Family-friendly" },
-  { id: "kayak", label: "Kayaking & adventure" },
-  { id: "castle", label: "Castle & views" },
+  { id: "history", label: "History & monuments" },
+  { id: "archaeology", label: "Archaeology & ruins" },
+  { id: "beaches", label: "Beaches & coast" },
+  { id: "wildlife", label: "Wildlife & nature" },
+  { id: "sailing", label: "Sailing & boat tours" },
+  { id: "food", label: "Sardinian food" },
+  { id: "wine", label: "Wine & tastings" },
+  { id: "relaxation", label: "Relaxation" },
 ];
 
 const INTEREST_TO_EXCURSION: Record<string, string[]> = {
-  roman: ["cartagena-roman-highlights", "roman-walking-tour", "harbour-panoramic-tour"],
-  walking: ["roman-walking-tour", "harbour-panoramic-tour", "cartagena-roman-highlights"],
-  food: ["tapas-local-food-experience", "cartagena-roman-highlights"],
-  murcia: ["cartagena-murcia"],
-  coastal: ["harbour-panoramic-tour", "coastal-kayaking", "cartagena-roman-highlights"],
-  family: ["family-friendly-cartagena", "cartagena-roman-highlights", "harbour-panoramic-tour"],
-  kayak: ["coastal-kayaking", "harbour-panoramic-tour"],
-  castle: ["harbour-panoramic-tour", "cartagena-roman-highlights"],
+  history: ["cagliari-city-highlights", "small-group-cagliari-highlights", "nora-archaeological-tour"],
+  archaeology: ["nora-archaeological-tour", "private-south-sardinia-tour", "cagliari-city-highlights"],
+  beaches: ["gulf-of-angels-boat-tour", "flamingos-and-nature", "cagliari-city-highlights"],
+  wildlife: ["flamingos-and-nature", "gulf-of-angels-boat-tour", "snorkelling-experience"],
+  sailing: ["sailing-experience", "gulf-of-angels-boat-tour", "snorkelling-experience"],
+  food: ["sardinian-food-experience", "cagliari-city-highlights"],
+  wine: ["sardinian-wine-experience", "sardinian-food-experience"],
+  relaxation: ["gulf-of-angels-boat-tour", "sailing-experience", "flamingos-and-nature"],
 };
 
 function parseTime(t: string): number {
@@ -63,96 +62,66 @@ function hoursAshore(arrival: string, departure: string): number {
 function excursionLink(slug: string, why: string): PlannerLink | null {
   const e = excursions.find((x) => x.slug === slug);
   if (!e) return null;
-  const prefix = e.editorsChoice ? "Editor's Choice — " : "";
-  return { label: `${prefix}${e.title}`, href: `/shore-excursions/${slug}`, why };
+  return { label: e.title, href: `/shore-excursions/${slug}`, why };
 }
 
-function pickItineraryTheme(
-  input: PlannerInput,
-  hours: number,
-  shortDay: boolean,
-  longDay: boolean,
-): string {
-  const { interests, style, children } = input;
-  const active = interests.length ? interests : ["roman", "walking"];
-
-  if (children > 0) return "Family Day";
-  if (active.includes("murcia") && longDay) return "Murcia Excursion";
-  if (style === "diy") return "Easy Walking Day";
-  if (shortDay) return "Easy Walking Day";
-  if (active.includes("food") && active.includes("roman")) return "Roman + Tapas";
-  if (active.includes("food")) return "Roman + Tapas";
-  if (active.includes("kayak") || active.includes("coastal")) return "Harbour & Coastal Experience";
-  if (active.includes("roman") && active.includes("walking")) return "Historic Walking Day";
-  if (active.includes("roman")) return "Roman Cartagena";
-  if (active.includes("walking")) return "Historic Walking Day";
-  return "Roman Cartagena";
-}
-
-export function generateCartagenaPlan(input: PlannerInput): PlannerResult {
+export function generateCagliariPlan(input: PlannerInput): PlannerResult {
   const { arrivalTime, departureTime, adults, children, interests, mobility, budget, style } = input;
   const party = adults + children;
   const hasKids = children > 0;
   const hours = hoursAshore(arrivalTime, departureTime);
-  const shortDay = hours < 6;
-  const standardDay = hours >= 6 && hours < 9;
-  const longDay = hours >= 9;
+  const shortDay = hours < 5;
+  const standardDay = hours >= 5 && hours < 8;
+  const longDay = hours >= 8;
 
   const excSlugs: string[] = [];
   const pushSlug = (s: string) => {
     if (s && !excSlugs.includes(s)) excSlugs.push(s);
   };
 
-  const activeInterests = interests.length ? interests : ["roman", "walking"];
+  const activeInterests = interests.length ? interests : ["history", "beaches"];
   for (const interest of activeInterests) {
     for (const s of INTEREST_TO_EXCURSION[interest] ?? []) pushSlug(s);
   }
 
-  if (hasKids) pushSlug("family-friendly-cartagena");
-  if (mobility === "limited") pushSlug("private-cartagena-experience");
-  if (style === "diy") {
-    // DIY recommendation is a guide, but still surface walking-friendly excursions
-    pushSlug("harbour-panoramic-tour");
-  }
+  if (hasKids) pushSlug("cagliari-city-highlights");
+  if (mobility === "limited") pushSlug("private-south-sardinia-tour");
+  if (style === "diy") pushSlug("small-group-cagliari-highlights");
 
   if (shortDay) {
-    pushSlug("cartagena-roman-highlights");
-    ["cartagena-murcia", "coastal-kayaking"].forEach((s) => {
+    pushSlug("cagliari-city-highlights");
+    pushSlug("small-group-cagliari-highlights");
+    ["nora-archaeological-tour", "private-south-sardinia-tour"].forEach((s) => {
       const idx = excSlugs.indexOf(s);
       if (idx >= 0) excSlugs.splice(idx, 1);
     });
   } else if (standardDay) {
-    if (activeInterests.includes("roman")) pushSlug("cartagena-roman-highlights");
-    if (activeInterests.includes("food")) pushSlug("tapas-local-food-experience");
-    if (activeInterests.includes("murcia") && hours >= 8) pushSlug("cartagena-murcia");
-    if (activeInterests.includes("kayak")) pushSlug("coastal-kayaking");
+    if (activeInterests.includes("archaeology")) pushSlug("nora-archaeological-tour");
+    if (activeInterests.includes("wildlife")) pushSlug("flamingos-and-nature");
+    if (activeInterests.includes("sailing")) pushSlug("gulf-of-angels-boat-tour");
+    if (activeInterests.includes("food")) pushSlug("sardinian-food-experience");
+    if (activeInterests.includes("wine")) pushSlug("sardinian-wine-experience");
   } else if (longDay) {
-    if (activeInterests.includes("murcia")) pushSlug("cartagena-murcia");
-    if (activeInterests.includes("roman")) pushSlug("roman-walking-tour");
-    if (budget === "premium") pushSlug("private-cartagena-experience");
+    if (activeInterests.includes("archaeology")) pushSlug("private-south-sardinia-tour");
+    if (activeInterests.includes("food") && activeInterests.includes("wine")) pushSlug("sardinian-food-experience");
+    if (activeInterests.includes("sailing")) pushSlug("sailing-experience");
   }
 
-  if (style === "guided" && party >= 2) pushSlug("cartagena-roman-highlights");
-  if (budget === "premium") pushSlug("private-cartagena-experience");
-  if (budget === "budget" && style === "diy") pushSlug("harbour-panoramic-tour");
-
-  if (activeInterests.includes("roman") && !shortDay) {
-    const idx = excSlugs.indexOf("cartagena-roman-highlights");
-    if (idx > 0) {
-      excSlugs.splice(idx, 1);
-      excSlugs.unshift("cartagena-roman-highlights");
-    }
-  }
+  if (style === "guided" && party >= 2) pushSlug("private-south-sardinia-tour");
+  if (budget === "premium") pushSlug("private-south-sardinia-tour");
+  if (activeInterests.includes("wildlife") && activeInterests.includes("sailing")) pushSlug("snorkelling-experience");
 
   const reasonMap: Record<string, string> = {
-    "cartagena-roman-highlights": "Editor's Choice — Roman Theatre, Forum and harbour views with small-group pacing.",
-    "roman-walking-tour": "Maximum archaeological depth on foot for history lovers.",
-    "cartagena-murcia": "Murcia cathedral and city centre — only on longer port days.",
-    "tapas-local-food-experience": "Authentic tapas and market culture near the old town.",
-    "coastal-kayaking": "Active coastal adventure with harbour panoramas.",
-    "harbour-panoramic-tour": "Castle of the Conception and harbour — strong for views and limited mobility.",
-    "private-cartagena-experience": mobility === "limited" ? "Flexible vehicle and pacing for your group." : "Custom Roman and tapas routing on long port days.",
-    "family-friendly-cartagena": "Kid-paced Roman sights and harbour time close to the ship.",
+    "cagliari-city-highlights": "Historic Cagliari — Castello, Bastione and Roman amphitheatre without long drives.",
+    "small-group-cagliari-highlights": "Walking Day — intimate city access with manageable pacing.",
+    "nora-archaeological-tour": "Nora & Archaeology — Phoenician and Roman ruins on a standard port window.",
+    "flamingos-and-nature": "Flamingos & Nature — Molentargius wetlands minutes from the port.",
+    "gulf-of-angels-boat-tour": "Boat & Snorkelling — Gulf of Angels coastline from the cruise port.",
+    "sailing-experience": "Premium sailing on the Gulf of Angels when your call is long enough.",
+    "snorkelling-experience": "Clear-water coves and marine life on a guided snorkel trip.",
+    "sardinian-food-experience": "Food & Wine — Mercato San Benedetto and authentic Sardinian flavours.",
+    "sardinian-wine-experience": "Cannonau and Vermentino tastings in the Campidano wine country.",
+    "private-south-sardinia-tour": mobility === "limited" ? "Flexible vehicle and pacing for your group." : "Maximum return-to-ship confidence for inland archaeology.",
   };
 
   const excursionLinks = excSlugs
@@ -160,79 +129,71 @@ export function generateCartagenaPlan(input: PlannerInput): PlannerResult {
     .map((s) => excursionLink(s, reasonMap[s] ?? "A strong match for your interests."))
     .filter((x): x is PlannerLink => x !== null);
 
-  const itineraryTheme = pickItineraryTheme(input, hours, shortDay, longDay);
-
   const guides: PlannerLink[] = [
-    { label: "Cartagena Cruise Port Guide", href: "/cruise-port-guide", why: "Muelle Alfonso XII layout, walking distances and return timing." },
-    { label: "One Day in Cartagena", href: "/one-day-in-cartagena-from-a-cruise-ship", why: "Itineraries matched to your hours ashore." },
-    { label: "Best Things to Do", href: "/best-things-to-do-in-cartagena-from-a-cruise-ship", why: "Compare Roman, tapas, Murcia and coastal options." },
+    { label: "Cagliari Cruise Port Guide", href: "/cruise-port-guide", why: "Stazione Marittima layout, walking distances and realistic transfer times." },
+    { label: "One Day in Cagliari", href: "/one-day-in-cagliari-from-a-cruise-ship", why: "Itineraries matched to your hours ashore." },
+    { label: "Best Things to Do", href: "/best-things-to-do-in-cagliari-from-a-cruise-ship", why: "Compare city, archaeology, nature, boat and food options." },
   ];
-  if (activeInterests.includes("roman")) guides.push({ label: "Why Roman Highlights is Editor's Choice", href: "/why-roman-highlights-is-our-editors-choice", why: "Our editorial reasoning after comparing all Roman options." });
-  if (activeInterests.includes("roman")) guides.push({ label: "Roman Theatre Guide", href: "/roman-theatre-cartagena", why: "Tickets, timing and walking distance from the terminal." });
-  if (style === "diy") guides.push({ label: "Old Town Walking Guide", href: "/cartagena-old-town-walking-guide", why: "Self-guided route — our pick for confident DIY travellers." });
-  if (activeInterests.includes("food")) guides.push({ label: "Food & Tapas Guide", href: "/cartagena-food-tapas-guide", why: "Where to eat on a port day near Calle Mayor." });
-  if (activeInterests.includes("murcia")) guides.push({ label: "Murcia from Cartagena", href: "/murcia-from-cartagena-cruise-port", why: "Drive times and what fits your port window." });
-  if (hasKids) guides.push({ label: "Best for Families", href: "/best-cartagena-excursions-for-families", why: "Family-paced Cartagena options." });
-  if (activeInterests.includes("kayak")) guides.push({ label: "Kayaking & Coastal Adventures", href: "/kayaking-coastal-adventures", why: "Coastal timing and return buffers." });
+  if (activeInterests.includes("archaeology")) guides.push({ label: "Nora Archaeological Site", href: "/nora-archaeological-site", why: "Drive times, what fits and return buffers explained." });
+  if (activeInterests.includes("wildlife")) guides.push({ label: "Molentargius Flamingo Park", href: "/molentargius-flamingo-park", why: "Pink flamingos and lagoon wildlife near the port." });
+  if (activeInterests.includes("sailing")) guides.push({ label: "Gulf of Angels Boat Tours", href: "/gulf-of-angels-boat-tours", why: "Coastal cruises and timing from Stazione Marittima." });
+  if (activeInterests.includes("food")) guides.push({ label: "Sardinian Food Guide", href: "/sardinian-food-guide", why: "Where cruise passengers eat well on a port day." });
+  if (activeInterests.includes("wine")) guides.push({ label: "Sardinian Wine Experiences", href: "/sardinian-wine-experiences", why: "Tastings and cellar visits from Cagliari." });
+  if (activeInterests.includes("beaches")) guides.push({ label: "Poetto Beach from Cruise Port", href: "/poetto-beach-from-cruise-port", why: "Beach Escape — bus, taxi and timing for Poetto." });
+  if (hasKids) guides.push({ label: "Best for Families", href: "/best-cagliari-excursions-for-families", why: "Family Day options with manageable walking and fun stops." });
 
   const logistics: PlannerLink[] = [
     { label: "Ship Schedules", href: "/ship-schedules", why: "See if other ships share your port day." },
     { label: "Independent vs Ship Excursions", href: "/independent-vs-cruise-line-excursions", why: "Compare flexibility and return-to-ship guarantees." },
-    { label: "FAQ", href: "/faq", why: "Common Cartagena cruise passenger questions." },
+    { label: "FAQ", href: "/faq", why: "Common Cagliari cruise passenger questions answered." },
   ];
 
   const dayPlan: { time: string; text: string }[] = [];
-  const topExc = excursionLinks[0]?.label ?? "your chosen experience";
+  const topExc = excursionLinks[0]?.label ?? "your chosen excursion";
 
-  dayPlan.push({ time: "On arrival", text: "Disembark at Muelle Alfonso XII. Allow 20–30 minutes for immigration and terminal exit before your excursion departs." });
+  dayPlan.push({ time: "On arrival", text: "Disembark at Stazione Marittima. Allow 30–45 minutes for immigration and terminal exit before your excursion or walk begins." });
 
-  if (itineraryTheme === "Easy Walking Day" || shortDay) {
-    dayPlan.push({ time: "Morning", text: style === "diy" ? "Self-guided Old Town Walking Route — Calle Mayor, Roman Theatre exterior and harbour promenade." : `Easy walking focus: ${topExc}.` });
-    dayPlan.push({ time: "Midday", text: activeInterests.includes("food") ? "Tapas lunch on Calle Mayor or at Mercado de Santa Florentina." : "Café stop in the old town before afternoon sights." });
-    dayPlan.push({ time: "Return", text: "Head back 45 minutes before all-aboard. Short port days cannot fit Murcia honestly." });
-  } else if (itineraryTheme === "Murcia Excursion") {
-    dayPlan.push({ time: "Early start", text: `Murcia day trip: ${topExc} — allow 45–60 minutes each way.` });
-    dayPlan.push({ time: "Midday", text: "Murcia cathedral, Plaza Cardinal Belluga and city-centre tapas." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 60–75 minutes before all-aboard — afternoon motorway traffic can build." });
-  } else if (itineraryTheme === "Roman + Tapas") {
-    dayPlan.push({ time: "Morning", text: `Roman Cartagena first: ${topExc} — Theatre and Forum while energy is high.` });
-    dayPlan.push({ time: "Midday", text: "Tapas experience or self-guided lunch near Calle Mayor and the market." });
-    dayPlan.push({ time: "Afternoon", text: "Castle lift for harbour views or relaxed promenade walk back toward the terminal." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 45–60 minutes — old-town lanes are close to the ship." });
-  } else if (itineraryTheme === "Harbour & Coastal Experience") {
-    dayPlan.push({ time: "Morning", text: `Harbour & coastal: ${topExc} — castle viewpoints or kayaking depending on your booking.` });
-    dayPlan.push({ time: "Afternoon", text: "Naval museum exterior, waterfront stroll and optional beach time if time allows." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 60 minutes for kayaking; 45 minutes for harbour-only tours." });
-  } else if (itineraryTheme === "Family Day") {
-    dayPlan.push({ time: "Morning", text: `Family Day: ${topExc} — Roman Theatre at kid-friendly pace plus harbour space to move.` });
-    dayPlan.push({ time: "Afternoon", text: "Ice cream on the promenade, lift to Castle viewpoints and easy walk back." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 45 minutes — families benefit from Cartagena's compact layout." });
-  } else if (itineraryTheme === "Historic Walking Day") {
-    dayPlan.push({ time: "Morning", text: `Historic walking: ${topExc} — Roman Walking Tour or self-guided Forum and Punic Wall lanes.` });
-    dayPlan.push({ time: "Afternoon", text: "Castle of the Conception lift and harbour panoramas before descending to the port." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 45–60 minutes for walking-heavy days." });
+  if (shortDay) {
+    dayPlan.push({ time: "Morning", text: `Historic Cagliari / Walking Day: ${topExc}. Castello and the Bastione are walkable — skip Nora and Barumini inland trips.` });
+    dayPlan.push({ time: "Midday", text: activeInterests.includes("food") ? "Quick lunch near Via Roma or Mercato San Benedetto." : "Bastione di Saint Remy terrace and cathedral exterior." });
+    dayPlan.push({ time: "Return", text: "Head back 45–60 minutes before all-aboard. Short port days leave little margin for inland archaeology." });
+  } else if (standardDay) {
+    if (activeInterests.includes("archaeology") && !shortDay) {
+      dayPlan.push({ time: "Early start", text: `Nora & Archaeology: ${topExc} — allow roughly 45 minutes each way to Pula.` });
+      dayPlan.push({ time: "Midday", text: "Roman theatre, forum and coastal views at Nora before return." });
+      dayPlan.push({ time: "Afternoon", text: "Return to Cagliari with a 60–75 minute buffer before all-aboard." });
+    } else if (activeInterests.includes("wildlife") || activeInterests.includes("sailing")) {
+      dayPlan.push({ time: "Morning", text: activeInterests.includes("wildlife") ? "Flamingos & Nature at Molentargius — pink flamingos and lagoon birdlife." : `Boat & Snorkelling: ${topExc} on the Gulf of Angels.` });
+      dayPlan.push({ time: "Midday", text: activeInterests.includes("beaches") ? "Beach Escape at Poetto if time allows." : "Coastal lunch or onboard picnic on a boat tour." });
+      dayPlan.push({ time: "Afternoon", text: "Optional Castello walk if energy remains — keep 45–60 minutes return margin." });
+      dayPlan.push({ time: "Return buffer", text: "Allow 45–60 minutes for city and nature days, 60–75 for Nora." });
+    } else {
+      dayPlan.push({ time: "Morning", text: `Start with ${topExc} — ${activeInterests.includes("food") ? "Food & Wine at Mercato San Benedetto." : "Historic Cagliari rewards an early Castello start."}` });
+      dayPlan.push({ time: "Midday", text: activeInterests.includes("wine") ? "Sardinian wine tasting in the Campidano." : "Lunch near Marina or Stampace districts." });
+      dayPlan.push({ time: "Afternoon", text: activeInterests.includes("relaxation") ? "Relaxed Gulf of Angels viewpoint or Poetto promenade." : "Roman amphitheatre or second Castello sights." });
+      dayPlan.push({ time: "Return buffer", text: "Allow 45–60 minutes margin for city days, 60–75 for Nora or Barumini." });
+    }
   } else {
-    dayPlan.push({ time: "Morning", text: `Roman Cartagena: ${topExc} — Theatre, Forum district and museum levels first.` });
-    dayPlan.push({ time: "Afternoon", text: activeInterests.includes("castle") ? "Castle viewpoints and naval harbour panoramas." : "Old-town lanes and return via the port promenade." });
-    dayPlan.push({ time: "Return buffer", text: "Allow 45–60 minutes — Cartagena's walkable core keeps margins comfortable." });
+    dayPlan.push({ time: "Early start", text: `Maximise your long day: ${topExc}. You have time for Nora, Su Nuraxi or a combined Food & Wine experience.` });
+    dayPlan.push({ time: "Midday", text: activeInterests.includes("archaeology") ? "Nora ruins and coastal archaeology at Pula." : activeInterests.includes("food") ? "Sardinian food experience with market and tastings." : "Gulf of Angels boat cruise with swimming stops." });
+    dayPlan.push({ time: "Afternoon", text: hasKids ? "Family Day — flamingos, beach time or city highlights at a gentle pace." : "Second experience or relaxed return via coastal road." });
+    dayPlan.push({ time: "Return buffer", text: "Even on long days, keep 60–75 minutes margin. Confirm your tour tracks ship departure." });
   }
 
   let returnConfidence: PlannerResult["returnConfidence"] = "high";
-  if (excSlugs.includes("cartagena-murcia") && !longDay) returnConfidence = "low";
-  else if (excSlugs.includes("cartagena-murcia")) returnConfidence = "medium";
-  else if (excSlugs.includes("coastal-kayaking")) returnConfidence = "medium";
+  if (excSlugs.includes("private-south-sardinia-tour") && !longDay) returnConfidence = "medium";
+  else if (excSlugs.includes("nora-archaeological-tour") && shortDay) returnConfidence = "low";
   else if (shortDay) returnConfidence = "medium";
 
   const interestLabels = activeInterests.map((i) => INTEREST_OPTIONS.find((o) => o.id === i)?.label ?? i).join(", ");
 
   return {
-    headline: `${itineraryTheme} (${hours.toFixed(1)} hours ashore)`,
-    summary: `A ${shortDay ? "short" : standardDay ? "standard" : "long"} port day for ${party} guest${party === 1 ? "" : "s"} focused on ${interestLabels.toLowerCase()}. ${style === "guided" ? "Guided tours recommended for Roman Theatre timing and Forum context." : style === "diy" ? "DIY works brilliantly in Cartagena — follow our Old Town Walking Guide." : "A mix of guided Roman sights and independent tapas suits most Cartagena calls."}`,
+    headline: `Your Cagliari Port-Day Plan (${hours.toFixed(1)} hours ashore)`,
+    summary: `A ${shortDay ? "short" : standardDay ? "standard" : "long"} port day for ${party} guest${party === 1 ? "" : "s"} focused on ${interestLabels.toLowerCase()}. ${style === "guided" ? "Guided tours recommended for Nora, Barumini and boat trips." : style === "diy" ? "DIY works well in Castello — book inland tours ahead if going independently." : "A mix of guided and independent suits most Cagliari calls."}`,
     excursions: excursionLinks,
     guides,
     logistics,
     dayPlan,
     returnConfidence,
-    itineraryTheme,
   };
 }

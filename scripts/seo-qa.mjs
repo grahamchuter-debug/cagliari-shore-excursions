@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
- * Post-implementation SEO QA for Cartagena Shore Excursions static export.
+ * Post-implementation SEO QA for Cagliari Shore Excursions static export.
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 const OUT = join(ROOT, "out");
-const SITE_URL = "https://cartagenashoreexcursion.com";
+const SITE_URL = "https://cagliarishoreexcursions.com";
 
 const results = [];
 const pass = (msg) => results.push({ status: "PASS", msg });
@@ -52,14 +52,7 @@ for (const file of htmlFiles) {
 if (noindexPages.filter((p) => p.includes("privacy") || p.includes("terms")).length >= 2) {
   pass("Privacy and Terms correctly use noindex");
 }
-const important = [
-  "/",
-  "/shore-excursions/",
-  "/cruise-port-guide/",
-  "/cruise-planner/",
-  "/faq/",
-  "/shore-excursions/cartagena-roman-highlights/",
-];
+const important = ["/", "/shore-excursions/", "/cruise-port-guide/", "/cruise-planner/", "/faq/", "/nora-archaeological-site/"];
 for (const p of important) {
   if (indexedPages.some((ip) => ip === p || ip.endsWith(p))) pass(`Important page indexable: ${p}`);
   else fail(`Important page missing or noindex: ${p}`);
@@ -80,15 +73,15 @@ for (const file of htmlFiles.slice(0, 50)) {
     }
   }
 }
-if (canonicalIssues === 0) pass("Canonical tags point to https://cartagenashoreexcursion.com (non-www)");
+if (canonicalIssues === 0) pass("Canonical tags point to https://cagliarishoreexcursions.com (non-www)");
 
 const redirects = readText(join(ROOT, "public/_redirects"));
-if (redirects.includes("www.cartagenashoreexcursion.com") && redirects.includes("301")) {
+if (redirects.includes("www.cagliarishoreexcursions.com") && redirects.includes("301")) {
   pass("WWW → non-WWW redirects configured in public/_redirects");
 } else {
   fail("WWW → non-WWW redirects missing from public/_redirects");
 }
-if (redirects.includes("http://cartagenashoreexcursion.com")) {
+if (redirects.includes("http://cagliarishoreexcursions.com")) {
   pass("HTTP → HTTPS redirect fallback configured");
 } else {
   info("HTTP → HTTPS handled by Cloudflare; defensive redirect present check optional");

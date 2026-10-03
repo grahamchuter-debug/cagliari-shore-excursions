@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { jsPDF } from "jspdf";
 import {
-  generateCartagenaPlan,
+  generateCagliariPlan,
   INTEREST_OPTIONS,
   type PlannerInput,
   type PlannerResult,
@@ -35,12 +35,12 @@ const CONFIDENCE_LABELS = {
   low: { text: "Tight timing — consider a shorter option", className: "bg-maple-500/10 text-maple-600" },
 };
 
-export function CartagenaCruisePlanner() {
+export function CagliariCruisePlanner() {
   const [arrivalTime, setArrivalTime] = useState("08:00");
   const [departureTime, setDepartureTime] = useState("17:00");
   const [adults, setAdults] = useState("2");
   const [children, setChildren] = useState("0");
-  const [interests, setInterests] = useState<string[]>(["roman", "walking"]);
+  const [interests, setInterests] = useState<string[]>(["history", "beaches"]);
   const [mobility, setMobility] = useState<PlannerInput["mobility"]>("full");
   const [budget, setBudget] = useState<PlannerInput["budget"]>("mid");
   const [style, setStyle] = useState<PlannerInput["style"]>("mix");
@@ -52,7 +52,7 @@ export function CartagenaCruisePlanner() {
 
   function generate() {
     setPlan(
-      generateCartagenaPlan({
+      generateCagliariPlan({
         arrivalTime,
         departureTime,
         adults: Number(adults) || 1,
@@ -98,7 +98,7 @@ export function CartagenaCruisePlanner() {
     write("Your day plan");
     doc.setFont("helvetica", "normal");
     plan.dayPlan.forEach((s) => write(`${s.time}: ${s.text}`, 24));
-    doc.save("cartagena-cruise-plan.pdf");
+    doc.save("cagliari-cruise-plan.pdf");
   }
 
   return (
@@ -192,7 +192,7 @@ export function CartagenaCruisePlanner() {
               ))}
             </ol>
           </section>
-          <p className="text-xs text-gray-500">Guidance is indicative — always confirm your ship&apos;s all-aboard time before you leave the port.</p>
+          <p className="text-xs text-gray-500">Guidance is indicative — always confirm your ship&apos;s all-aboard time. Register interest on excursion pages for upcoming direct tours.</p>
         </div>
       )}
     </div>

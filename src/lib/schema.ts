@@ -75,6 +75,7 @@ export function articleSchema({
   };
 }
 
+/** TravelAgency / LocalBusiness for the Cagliari cruise planning brand. */
 export function travelAgencySchema() {
   return {
     "@context": "https://schema.org",
@@ -85,20 +86,21 @@ export function travelAgencySchema() {
     email: SITE.email,
     areaServed: {
       "@type": "City",
-      name: "Cartagena",
+      name: "Cagliari",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Cartagena",
-        addressRegion: "Murcia",
-        addressCountry: "ES",
+        addressLocality: "Cagliari",
+        addressRegion: "Sardinia",
+        addressCountry: "IT",
       },
     },
     knowsAbout: [
-      "Cartagena shore excursions",
-      "Cartagena cruise port guide",
-      "Roman Theatre Cartagena",
-      "Cartagena walking tours",
-      "Murcia from Cartagena cruise port",
+      "Cagliari shore excursions",
+      "Cagliari cruise port guide",
+      "Nora archaeological site from Cagliari",
+      "Molentargius flamingo tours",
+      "Gulf of Angels boat tours",
+      "Sardinian food and wine",
     ],
     contactPoint: {
       "@type": "ContactPoint",

@@ -13,13 +13,13 @@ const path = "/cruise-port-guide";
 const image = siteImages.port;
 
 export const metadata = buildMetadata({
-  title: "Cartagena Cruise Port Guide",
+  title: "Cagliari Cruise Port Guide",
   description:
-    "The complete Cartagena cruise port guide — Muelle Alfonso XII terminal, walking distances to the Roman Theatre and old town, Murcia transfer times and return-to-ship timing for cruise passengers.",
+    "The complete Cagliari cruise port guide — where ships dock at Stazione Marittima, walking distances to Castello, taxi and bus options, Nora drive times and return-to-ship timing for Southern Sardinia cruise passengers.",
   path,
   image: image.src,
   imageAlt: image.alt,
-  keywords: ["Cartagena cruise port guide", "Cartagena cruise port", "Cartagena cruise terminal", "Cartagena from cruise ship"],
+  keywords: ["Cagliari cruise port", "Cagliari cruise port guide", "Cagliari cruise terminal"],
 });
 
 const breadcrumbs = [
@@ -30,13 +30,13 @@ const breadcrumbs = [
 export default function CruisePortGuidePage() {
   return (
     <>
-      <JsonLd data={[breadcrumbSchema(breadcrumbs), faqSchema(portGuideFaqs), articleSchema({ title: "Cartagena Cruise Port Guide", description: metadata.description as string, path, image: image.src })]} />
-      <PhotoHeroBand image={image} eyebrow="Cruise port guidance" title="Cartagena Cruise Port Guide" subtitle="Where ships dock, terminal facilities, walking distances to Roman sights and return-to-ship timing — practical advice for cruise passengers." compact />
+      <JsonLd data={[breadcrumbSchema(breadcrumbs), faqSchema(portGuideFaqs), articleSchema({ title: "Cagliari Cruise Port Guide", description: metadata.description as string, path, image: image.src })]} />
+      <PhotoHeroBand image={image} eyebrow="Waterfront terminal guidance" title="Cagliari Cruise Port Guide" subtitle="Where ships dock, walking distances to Castello, transport to Nora and Molentargius, and return-to-ship timing — everything for arrival day." compact />
       <section className="section-padding">
         <div className="container-wide max-w-4xl">
           <Breadcrumbs items={breadcrumbs} />
 
-          <h2 className="section-title text-2xl mb-4">Cartagena cruise terminals at a glance</h2>
+          <h2 className="section-title text-2xl mb-4">Cagliari cruise terminals at a glance</h2>
           <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
               <thead className="bg-coastal-800 text-white">
@@ -59,7 +59,7 @@ export default function CruisePortGuidePage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-xs text-gray-500">Confirm berth vs tender assignment on arrival — it affects excursion timing.</p>
+          <p className="mt-2 text-xs text-gray-500">Most berths are walkable to Castello — confirm your terminal assignment on arrival.</p>
 
           <div className="prose-body mt-4">
             {portGuideSections.map((s) => (
@@ -71,12 +71,12 @@ export default function CruisePortGuidePage() {
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            <Link href="/cartagena-old-town-walking-guide" className="nav-card"><h3 className="font-display text-base font-bold text-gray-900">Old Town walking</h3><p className="mt-1 text-sm text-gray-600">Routes and distances from the terminal.</p></Link>
-            <Link href="/one-day-in-cartagena-from-a-cruise-ship" className="nav-card"><h3 className="font-display text-base font-bold text-gray-900">One day in Cartagena</h3><p className="mt-1 text-sm text-gray-600">Plans built around your port window.</p></Link>
+            <Link href="/cagliari-old-town-walking-guide" className="nav-card"><h3 className="font-display text-base font-bold text-gray-900">Old Town walking</h3><p className="mt-1 text-sm text-gray-600">Routes and distances from the pier.</p></Link>
+            <Link href="/one-day-in-cagliari-from-a-cruise-ship" className="nav-card"><h3 className="font-display text-base font-bold text-gray-900">One day in Cagliari</h3><p className="mt-1 text-sm text-gray-600">Plans built around your port window.</p></Link>
             <Link href="/ship-schedules" className="nav-card"><h3 className="font-display text-base font-bold text-gray-900">Ship schedules</h3><p className="mt-1 text-sm text-gray-600">See who&apos;s in port before you book.</p></Link>
           </div>
 
-          <div className="mt-12"><FAQSection faqs={portGuideFaqs} title="Cartagena Cruise Port — FAQs" /></div>
+          <div className="mt-12"><FAQSection faqs={portGuideFaqs} title="Cagliari Cruise Port — FAQs" /></div>
           <div className="mt-12"><PlanningLinks /></div>
         </div>
       </section>

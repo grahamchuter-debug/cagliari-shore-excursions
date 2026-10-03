@@ -11,7 +11,7 @@
     "seo-qa": "node scripts/seo-qa.mjs",
     "download-images": "node scripts/download-images.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "pages:deploy": "npm run build && wrangler pages deploy out --project-name=cartagena-shore-excursions"
+    "pages:deploy": "npm run build && wrangler pages deploy out --project-name=cagliari-shore-excursions"
   },
   "engines": {
     "node": ">=20"

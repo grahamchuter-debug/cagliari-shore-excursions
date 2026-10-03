@@ -11,11 +11,11 @@ import { SCHEDULE_YEARS, portYearPath, portHubPath } from "@/lib/schedule-utils"
 const path = "/ship-schedules";
 
 export const metadata = buildMetadata({
-  title: "Cartagena Cruise Ship Schedules",
+  title: "Cagliari Cruise Ship Schedules",
   description:
-    "Cartagena cruise ship schedules by year and month. See which ships are in port before booking Roman excursions, tapas tours or Murcia day trips — ready for CSV schedule imports.",
+    "Cagliari cruise ship schedules by year and month. See which ships are scheduled before booking Nora, Molentargius and Cagliari shore excursions.",
   path,
-  keywords: ["Cartagena cruise ship schedule", "Cartagena cruise calendar", "Cartagena cruise port schedule"],
+  keywords: ["Cagliari cruise ship schedule", "Cagliari cruise calendar"],
 });
 
 const breadcrumbs = [
@@ -26,8 +26,8 @@ const breadcrumbs = [
 export default function ShipSchedulesPage() {
   return (
     <>
-      <JsonLd data={[breadcrumbSchema(breadcrumbs), webPageSchema({ title: "Cartagena Cruise Ship Schedules", description: "Cartagena cruise ship schedules by year and month.", path })]} />
-      <PageHero title="Cartagena Cruise Ship Schedules" subtitle="See which ships are in port before you book excursions. Year and month views are ready for schedule imports — times are indicative until data is loaded." compact />
+      <JsonLd data={[breadcrumbSchema(breadcrumbs), webPageSchema({ title: "Cagliari Cruise Ship Schedules", description: "Cagliari cruise ship schedules by year and month.", path })]} />
+      <PageHero title="Cagliari Cruise Ship Schedules" subtitle="See which ships are scheduled at Cagliari before you book excursions. Times are indicative — always confirm with your cruise line. Ready for CSV imports as schedules are published." compact />
       <section className="section-padding">
         <div className="container-wide max-w-5xl">
           <Breadcrumbs items={breadcrumbs} />
@@ -43,7 +43,7 @@ export default function ShipSchedulesPage() {
                   {count > 0 ? (
                     <span className="pill">{count} entries</span>
                   ) : (
-                    <span className="pill-accent">Ready for CSV import</span>
+                    <span className="pill-accent">CSV import ready</span>
                   )}
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">

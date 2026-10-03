@@ -5,17 +5,17 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PlanningLinks } from "@/components/PlanningLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
-import { excursions, getEditorsChoiceExcursion } from "@/data/excursions";
+import { excursions } from "@/data/excursions";
 import { excursionsHubImage, getExcursionImage } from "@/lib/images";
 
 export const metadata = buildMetadata({
-  title: "Cartagena Shore Excursions",
+  title: "Cagliari Shore Excursions",
   description:
-    "Cartagena shore excursions for cruise passengers — Roman Highlights (Editor's Choice), Roman walking tours, tapas experiences, Murcia day trips, coastal kayaking and private Cartagena tours.",
+    "Premium Cagliari shore excursions for cruise passengers — city highlights, Nora archaeology, flamingo nature tours, Gulf of Angels boat trips, Sardinian food and wine, sailing and private South Sardinia tours.",
   path: "/shore-excursions",
   image: excursionsHubImage.src,
   imageAlt: excursionsHubImage.alt,
-  keywords: ["Cartagena cruise excursions", "Cartagena shore excursions", "Roman Theatre Cartagena"],
+  keywords: ["Cagliari cruise excursions", "Nora from Cagliari cruise port", "flamingo tour Cagliari", "Gulf of Angels boat tour"],
 });
 
 const breadcrumbs = [
@@ -30,34 +30,25 @@ const AVAILABILITY_BADGES = {
 };
 
 export default function ShoreExcursionsPage() {
-  const editorsChoice = getEditorsChoiceExcursion();
-
   return (
     <>
-      <JsonLd data={[breadcrumbSchema(breadcrumbs), webPageSchema({ title: "Cartagena Shore Excursions", description: "Premium Cartagena shore excursions for cruise passengers.", path: "/shore-excursions" })]} />
+      <JsonLd data={[breadcrumbSchema(breadcrumbs), webPageSchema({ title: "Cagliari Shore Excursions", description: "Premium Cagliari shore excursions for cruise passengers.", path: "/shore-excursions" })]} />
       <PhotoHeroBand
         image={excursionsHubImage}
-        eyebrow="Cruise-timed tours"
-        title="Cartagena Shore Excursions"
-        subtitle="Independent, passenger-first recommendations — Roman Highlights is our Editor's Choice, but we compare every option honestly so you choose the right Cartagena day for your port window."
+        eyebrow="Southern Sardinia tours"
+        title="Cagliari Shore Excursions"
+        subtitle="Premium, passenger-first tours built around your Cagliari port day — Castello highlights, Nora archaeology, flamingo wetlands, Gulf of Angels boat tours and Sardinian food and wine, with reliable return-to-ship timing."
         compact
       />
       <section className="section-padding">
         <div className="container-wide">
           <Breadcrumbs items={breadcrumbs} />
 
-          {editorsChoice && (
-            <div className="mb-10 card-editors-choice max-w-4xl">
-              <span className="pill-editors-choice">Editor&apos;s Choice</span>
-              <h2 className="font-display text-xl font-bold text-gray-900 mt-3">{editorsChoice.title}</h2>
-              <p className="mt-2 text-sm text-gray-700 leading-relaxed">{editorsChoice.overview.slice(0, 320)}…</p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link href={`/shore-excursions/${editorsChoice.slug}`} className="btn-primary text-sm">View Roman Highlights</Link>
-                <Link href="/why-roman-highlights-is-our-editors-choice" className="btn-secondary text-sm">Why we recommend it</Link>
-                <Link href="/independent-vs-cruise-line-excursions" className="btn-secondary text-sm">Compare with ship tours</Link>
-              </div>
-            </div>
-          )}
+          <div className="mb-10 card-feature max-w-3xl">
+            <p className="text-sm text-gray-700 leading-relaxed">
+              Direct, shared and private tours are launching soon. Browse excursion options below and <Link href="/enquire" className="font-semibold text-coastal-700 hover:underline">register your interest</Link> — we will notify you when bookable tours go live, including exclusive tours, wildlife tours, food tours, wine tours and sailing experiences.
+            </p>
+          </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {excursions.map((e) => {
@@ -68,18 +59,14 @@ export default function ShoreExcursionsPage() {
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img src={image.src} alt={image.alt} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-coastal-900/55 via-transparent to-transparent" aria-hidden="true" />
-                    {e.editorsChoice ? (
-                      <span className="absolute left-3 top-3 pill-editors-choice">Editor&apos;s Choice</span>
-                    ) : (
-                      <span className="absolute left-3 top-3 pill bg-white/90">{e.category}</span>
-                    )}
+                    <span className="absolute left-3 top-3 pill bg-white/90">{e.category}</span>
                   </div>
                   <div className="p-6">
                     <h2 className="font-display text-lg font-bold text-gray-900 group-hover:text-coastal-800">{e.title}</h2>
                     <p className="mt-2 text-sm text-gray-600">{e.tagline}</p>
                     <p className="mt-3 text-xs font-medium text-coastal-700">{e.duration} · {e.pace}</p>
                     <span className={`mt-2 inline-block ${badge.className}`}>{badge.label}</span>
-                    <p className="mt-2 text-xs text-gray-500 line-clamp-2">Best for: {e.bestFor}</p>
+                    <p className="mt-2 text-xs text-gray-500">Best for: {e.bestFor}</p>
                   </div>
                 </Link>
               );

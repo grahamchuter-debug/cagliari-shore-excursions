@@ -43,8 +43,8 @@ function loadSlugsFromTs(relativePath, arrayName) {
 }
 
 const excursionSlugs = loadSlugsFromTs("src/data/excursions.ts", "excursions");
+const attractionSlugs = loadSlugsFromTs("src/data/attractions.ts", "attractions");
 const guideSlugs = loadSlugsFromTs("src/data/guides.ts", "guides");
-const comparisonSlugs = loadSlugsFromTs("src/data/comparisons.ts", "comparisons");
 const schedulePortSlugs = loadSlugsFromTs("src/data/schedules.ts", "schedulePorts");
 
 const dynamicPatterns = [
@@ -55,8 +55,8 @@ const dynamicPatterns = [
 ];
 
 for (const slug of excursionSlugs) validPaths.add(`/shore-excursions/${slug}`);
+for (const slug of attractionSlugs) validPaths.add(`/${slug}`);
 for (const slug of guideSlugs) validPaths.add(`/${slug}`);
-for (const slug of comparisonSlugs) validPaths.add(`/${slug}`);
 for (const slug of schedulePortSlugs) {
   validPaths.add(`/ship-schedules/${slug}`);
   for (const year of ["2026", "2027"]) {
