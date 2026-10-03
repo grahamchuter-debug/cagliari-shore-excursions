@@ -5,6 +5,6 @@ export const SITE = {
   tagline: "The Definitive cagliari",
   description:
     "Plan every part of your cagliari",
-  email: "hello@cagliari",
+  email: "hello@cagliarishoreexcursions.com",
   locale: "en_GB",
 } as const;
