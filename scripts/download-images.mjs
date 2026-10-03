@@ -36,19 +36,19 @@ const directUrls = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Archaeological_site_Nora_-_Pula_-_Sardinia_-_Italy_-_04.jpg/1920px-Archaeological_site_Nora_-_Pula_-_Sardinia_-_Italy_-_04.jpg",
   "nuraghe.jpg":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Nuraghe_Su_Nuraxi_-_Barumini_-_Sardinia_-_Italy_-_27.jpg/1920px-Nuraghe_Su_Nuraxi_-_Barumini_-_Sardinia_-_Italy_-_27.jpg",
-  "boat.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Baunei_-_panoramio_%281%29.jpg/1920px-Baunei_-_panoramio_%281%29.jpg",
-  "sailing.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Sailing_in_Sardinia_%2C_La_Caletta_-_panoramio_%281%29.jpg/1920px-Sailing_in_Sardinia_%2C_La_Caletta_-_panoramio_%281%29.jpg",
-  "snorkel.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Baunei_-_panoramio_%281%29.jpg/1920px-Baunei_-_panoramio_%281%29.jpg",
+  "boats-marina-piccola-sella-del-diavolo.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Sella_del_Diavolo.jpg/1920px-Sella_del_Diavolo.jpg",
+  "sailing-dinghies-gulf-of-angels.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Costa_degli_angeli.jpg/1920px-Costa_degli_angeli.jpg",
+  "clear-water-sella-del-diavolo.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Sella_del_Diavolo_2_%28Cagliari%29.jpg/1920px-Sella_del_Diavolo_2_%28Cagliari%29.jpg",
   "food.jpg": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Sanbenedetto.jpg",
-  "wine.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Wine_country_near_Nuoro%2C_Sardinia_-_clurr.jpg/1920px-Wine_country_near_Nuoro%2C_Sardinia_-_clurr.jpg",
-  "villages.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Murals_in_Orgosolo_28.jpg/1920px-Murals_in_Orgosolo_28.jpg",
-  "cruise-port.jpg":
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Staro_mesto_%28Castello%29%2C_Cagliari.jpg/1920px-Staro_mesto_%28Castello%29%2C_Cagliari.jpg",
+  "carignano-vineyard-sant-antioco.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Spiaggia_Grande_vineyard_on_a_sandy_soil.jpg/1920px-Spiaggia_Grande_vineyard_on_a_sandy_soil.jpg",
+  "villanovaforru-village.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Villanovaforru_-_Panorama_%2803%29.jpg/1920px-Villanovaforru_-_Panorama_%2803%29.jpg",
+  "cruise-ship-port-of-cagliari.jpg":
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Cagliari_haven_2018_4.jpg/1920px-Cagliari_haven_2018_4.jpg",
   "private-tour.jpg":
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Staro_mesto_%28Castello%29%2C_Cagliari.jpg/1920px-Staro_mesto_%28Castello%29%2C_Cagliari.jpg",
   "family.jpg":
@@ -61,17 +61,8 @@ const alternates = {
   "flamingos.jpg": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Parco_Molentargius_1.JPG/1920px-Parco_Molentargius_1.JPG",
   ],
-  "wine.jpg": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Cagliari_Anfiteatro_Romano.jpg/1920px-Cagliari_Anfiteatro_Romano.jpg",
-  ],
-  "villages.jpg": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Castello%2C_Cagliari.jpg/1920px-Castello%2C_Cagliari.jpg",
-  ],
   "food.jpg": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Castello%2C_Cagliari.jpg/1920px-Castello%2C_Cagliari.jpg",
-  ],
-  "cruise-port.jpg": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Bastione_San_Remy_seen_from_piazza_Costituzione.jpg/1920px-Bastione_San_Remy_seen_from_piazza_Costituzione.jpg",
   ],
 };
 

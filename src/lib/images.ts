@@ -19,8 +19,8 @@ export const siteImages = {
     alt: "Cagliari Shore Excursions",
   },
   port: {
-    src: `${B}/cruise-port.jpg`,
-    alt: "Cagliari's old Castello quarter and its walls rising above the city",
+    src: `${B}/cruise-ship-port-of-cagliari.jpg`,
+    alt: "The cruise ship Queen Victoria berthed in the port of Cagliari",
   },
 } as const;
 
@@ -32,12 +32,12 @@ export const subjectImages: Record<string, SiteImage> = {
   flamingos: { src: `${B}/flamingos.jpg`, alt: "A greater flamingo feeding in the shallows at Parco Molentargius, Cagliari" },
   nora: { src: `${B}/nora.jpg`, alt: "Roman ruins at Nora archaeological site near Pula" },
   nuraghe: { src: `${B}/nuraghe.jpg`, alt: "Su Nuraxi di Barumini UNESCO nuraghe in Sardinia" },
-  boat: { src: `${B}/boat.jpg`, alt: "A sailing boat below the limestone cliffs of the Baunei coast in eastern Sardinia" },
-  sailing: { src: `${B}/sailing.jpg`, alt: "Yachts moored in the marina at La Caletta, on Sardinia's east coast, at sunset" },
-  snorkel: { src: `${B}/snorkel.jpg`, alt: "A sailing boat below the limestone cliffs of the Baunei coast in eastern Sardinia" },
+  boat: { src: `${B}/boats-marina-piccola-sella-del-diavolo.jpg`, alt: "Boats moored at Marina Piccola below the Sella del Diavolo headland, Cagliari" },
+  sailing: { src: `${B}/sailing-dinghies-gulf-of-angels.jpg`, alt: "Small sailing dinghies racing on the Gulf of Angels, with the Sardinian coast and mountains behind" },
+  snorkel: { src: `${B}/clear-water-sella-del-diavolo.jpg`, alt: "Clear turquoise water over rocks below the Sella del Diavolo, Cagliari, with a boat at anchor" },
   food: { src: `${B}/food.jpg`, alt: "Fruit and vegetable stalls inside Cagliari's San Benedetto market" },
-  wine: { src: `${B}/wine.jpg`, alt: "The Roman amphitheatre in Cagliari, cut into the limestone hillside" },
-  villages: { src: `${B}/villages.jpg`, alt: "The walled Castello quarter on its hilltop above central Cagliari" },
+  wine: { src: `${B}/carignano-vineyard-sant-antioco.jpg`, alt: "Old Carignano vines with ripe grapes in sandy soil on Sant'Antioco island, south-west Sardinia" },
+  villages: { src: `${B}/villanovaforru-village.jpg`, alt: "Villanovaforru, a village of red-tiled roofs in the Marmilla hills of southern Sardinia" },
   "city-highlights": { src: `${B}/city-highlights.jpg`, alt: "Giuseppe Barberis's 1895 engraving of Cagliari's Castello quarter above its bastions" },
   "private-tour": { src: `${B}/private-tour.jpg`, alt: "Cagliari's old Castello quarter and its walls rising above the city" },
   family: { src: `${B}/family.jpg`, alt: "The Torre del Poetto watchtower on its headland above the sea at Poetto, Cagliari" },
