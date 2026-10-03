@@ -6,3 +6,23 @@ http://www.cagliarishoreexcursions.com/*   https://cagliarishoreexcursions.com/:
 # HTTP -> HTTPS on the apex is handled automatically by Cloudflare
 # ("Always Use HTTPS"). Kept here as a defensive fallback.
 http://cagliarishoreexcursions.com/*       https://cagliarishoreexcursions.com/:splat  301!
+
+# July 2026 placeholder schedule months with no verified calls -> year page.
+/ship-schedules/cagliari/april-2026 /ship-schedules/cagliari/2026/ 301
+/ship-schedules/cagliari/april-2026/ /ship-schedules/cagliari/2026/ 301
+/ship-schedules/cagliari/may-2026 /ship-schedules/cagliari/2026/ 301
+/ship-schedules/cagliari/may-2026/ /ship-schedules/cagliari/2026/ 301
+/ship-schedules/cagliari/june-2026 /ship-schedules/cagliari/2026/ 301
+/ship-schedules/cagliari/june-2026/ /ship-schedules/cagliari/2026/ 301
+
+# Same-topic URLs served by the incorrect Sept 2026 build -> genuine Cagliari pages.
+/best-cartagena-excursions-for-families /best-cagliari-excursions-for-families/ 301
+/best-cartagena-excursions-for-families/ /best-cagliari-excursions-for-families/ 301
+/best-cartagena-excursions-for-history-lovers /best-cagliari-excursions-for-history-lovers/ 301
+/best-cartagena-excursions-for-history-lovers/ /best-cagliari-excursions-for-history-lovers/ 301
+/best-things-to-do-in-cartagena-from-a-cruise-ship /best-things-to-do-in-cagliari-from-a-cruise-ship/ 301
+/best-things-to-do-in-cartagena-from-a-cruise-ship/ /best-things-to-do-in-cagliari-from-a-cruise-ship/ 301
+/one-day-in-cartagena-from-a-cruise-ship /one-day-in-cagliari-from-a-cruise-ship/ 301
+/one-day-in-cartagena-from-a-cruise-ship/ /one-day-in-cagliari-from-a-cruise-ship/ 301
+/cartagena-old-town-walking-guide /cagliari-old-town-walking-guide/ 301
+/cartagena-old-town-walking-guide/ /cagliari-old-town-walking-guide/ 301
